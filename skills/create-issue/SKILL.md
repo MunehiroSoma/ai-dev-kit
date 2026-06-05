@@ -101,4 +101,3 @@ gh issue create --repo <owner>/<repo> \
 
 - Yes: `/update-skill create-issue` を実行し、改善案を提示して承認後に反映する
 - No: 更新見送り理由を 1 行で記録し、次回見直しの条件を確認する
-</content>

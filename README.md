@@ -61,4 +61,3 @@ gh skill update
 ## ライセンス
 
 Proprietary（非公開リポジトリ・社内/研修利用）。
-</content>

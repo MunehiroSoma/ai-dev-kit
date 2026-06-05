@@ -75,4 +75,3 @@ description: 作業開始時に GitHub Issues を確認し、ブランチ作成�
 - Yes: `/update-skill start` を実行し、改善案を提示して承認後に反映する
 - No: 更新見送り理由を 1 行で記録し、次回見直しの条件を確認する
 - 関連 Issue がある場合: 確認結果（更新した / 見送った理由）を Issue コメントで共有する
-</content>
