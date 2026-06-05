@@ -1,0 +1,17 @@
+{
+  "name": "ai-dev-training",
+  "owner": {
+    "name": "Munehiro Soma",
+    "email": "munehirosoma.business@gmail.com"
+  },
+  "description": "AI駆動開発の標準ワークフロースキル集",
+  "plugins": [
+    {
+      "name": "ai-dev-kit",
+      "source": ".",
+      "description": "AI駆動開発の標準ワークフロースキル一式（start / new-feature / create-issue / sync-main / ship / review / test-check / long-run / update-skill / release-kit）",
+      "category": "workflow",
+      "keywords": ["ai-driven-development", "workflow", "github-flow", "training"]
+    }
+  ]
+}

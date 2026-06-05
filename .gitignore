@@ -1,0 +1,12 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# secrets (念のため)
+.env
+.env.*
+*.pem
+*.key
