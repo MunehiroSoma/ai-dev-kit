@@ -1,7 +1,7 @@
 # ai-dev-kit
 
-AI駆動開発の**標準ワークフロースキル集**。GitHub Flow をベースに、作業開始 → 実装 → レビュー →
-完了判定 → PR → スキル自己改善・配布までを、エージェント用スキル（`SKILL.md`）として提供する。
+AI駆動開発の**標準ワークフロースキル集**。
+GitHub Flow をベースに、作業開始 → 実装 → レビュー →完了判定 → PR → スキル自己改善・配布までを、エージェント用スキル（`SKILL.md`）として提供する。
 
 [agentskills.io](https://agentskills.io) 仕様準拠。**マルチエージェント対応**（Claude Code / Cursor / Codex / Copilot / Gemini ほか）。
 
@@ -60,4 +60,4 @@ gh skill update
 
 ## ライセンス
 
-Proprietary（非公開リポジトリ・社内/研修利用）。
+Proprietary（公開リポジトリ・社内/研修利用）。
