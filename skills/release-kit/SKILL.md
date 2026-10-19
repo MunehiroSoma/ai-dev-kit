@@ -1,92 +1,40 @@
 ---
 name: release-kit
-description: スキル/テンプレの改善を公開リポジトリへ反映し、新バージョンとして配布する
+description: ai-dev-kit 正本の変更を検証し、バージョンと配布を準備する。公開操作は対象・内容の承認後に行う、保守者向けの手順。
 ---
 
-# skill: release-kit
+# ai-dev-kit を配布する
 
-`ai-dev-kit` プラグイン（標準スキル・テンプレ集）の改善を、公開している GitHub リポジトリへ
-反映してリリースする。これにより、各プロジェクト・各受講者の環境が
-`/plugin update` で最新スキルを受け取れるようになる。
+保守者向けのスキル。正本リポジトリの `skills/` とルート直下の `.claude-plugin/plugin.json` を扱う。利用プロジェクトや導入コピーをリリース元にしない。
 
-> このスキルは `update-skill`（個々のスキルを改善）の後工程。
-> update-skill で磨いた内容を、ここで**配布物として公開**する。
+## リリース準備
 
-## 使い方
+記述ルールは `python scripts/sync-output-rules.py --check` で同梱コピーの一致を確認する。差があれば編集元と今回の変更範囲を確認し、`python scripts/sync-output-rules.py` で更新してから再確認する。
 
-```
-/release-kit <変更概要>
-例: /release-kit ship に worktree 退避手順を追記
-```
+1. 正本のパス、remote、現在ブランチ/HEAD、既存差分、既存タグ、今回の対象変更を確認する。未コミットの対象外変更を混ぜない。`main` / `origin` を決め打ちせず、公開先とリリースするコミットを特定する。
+2. 全スキルの frontmatter とローカル参照、manifest の JSON、単体導入での参照解決、説明と実際の終了条件を検証する。Claude CLI が使える場合は正本ルートで `claude plugin validate .` を行う。使えなければ構造検証を実施し、Claude 実行検証は未実施と明記する。検証のために勝手に導入しない。
+3. 変更内容に応じて `.claude-plugin/plugin.json` の version と `CHANGELOG.md` を更新する。バージョンはここに一本化し、marketplace 側には重複させない。公開済みタグを再利用・移動しない。0.x の互換性に影響する変更は minor を上げ、1.x 以降は破壊的変更を major とする。
+4. 配布差分、検証結果、未確認事項、バージョン、予定する公開先・コミット・タグを提示する。秘密情報や案件固有情報の混入を確認する。準備だけの依頼ならここで終了する。
 
-## 前提
+## 公開が依頼・承認された場合だけ
 
-- このリポジトリが `<owner>/<repo>` として GitHub に公開（または共有）済みであること
-- `gh auth status` が通っていること
+- 上記の具体的な対象・内容について既存の承認があれば再承認を求めない。未承認なら push 等の公開操作の直前に承認を受ける。準備・スキル改善の依頼を公開許可へ拡張しない。
+- 対象ファイルだけを commit し、承認されたリリースコミットに未使用のタグを付ける。全件 `git add -A` は使わない。ブランチ・タグ・manifest の version と内容が同じリリースを指すことを確認する。
+- リポジトリの保護規則・PR 運用に従って公開する。既定ブランチへ勝手に直接 push したり、PR を自動 merge したりしない。ブランチ公開とタグ公開の片方だけ成功した場合は状態を報告し、タグ移動や force push で取り繕わない。
+- 成功はリモートのブランチ/タグと対象コミットを読み戻して確認する。配布の成功と、利用者環境で更新済みであることを区別する。
 
-## 手順
+利用者には導入方式に応じた更新方法を案内する（`gh skill update`、Claude の marketplace / plugin 更新等）。導入先やキャッシュは直接編集せず、利用者へのメッセージ送信も別途依頼された場合だけ行う。
 
-0. 事前チェック
-   ```bash
-   gh auth status
-   git status --short        # 反映したい変更が揃っているか確認
-   ```
+## 記述ルール
 
-1. マニフェストの妥当性を検証する
-   ```bash
-   claude plugin validate .
-   ```
-   - `marketplace.json` とスキル frontmatter のエラーがないことを確認する
+記述・編集前に[共通ルール](references/output-common.md)を読み、出力内容に応じて[応答](references/output-response.md)・[ドキュメント](references/output-document.md)・[コード](references/output-code.md)の該当ルールを読む。チャット内の仕様書もドキュメントとして扱い、複数対象があれば各部分に適用する。ユーザー指定・リポジトリ規約・必要なテンプレートを尊重する。
 
-2. バージョンを上げる（必須）
-   - `plugins/ai-dev-kit/.claude-plugin/plugin.json` の `version` を SemVer で上げる
-   - スキル追加 = minor、文言修正 = patch、互換性のない構成変更 = major
-   - ※ `version` を据え置くと、既存ユーザーには更新が届かない
+準備・公開結果の報告は応答、利用案内はドキュメントとして扱う。変更履歴には配布内容の理解に必要な経緯を残す。
 
-3. 変更履歴を残す
-   - `CHANGELOG.md` に `## <version> (YYYY-MM-DD)` 節を追記する
+提出前に、不要な説明・反復・装飾と、過去案への打ち消しを確認する。必要な条件・根拠・不確実性・挙動を保持し、コード変更には変更に応じた動作確認を行う。
 
-4. コミットしてタグを打つ
-   ```bash
-   git add -A
-   git commit -m "release: ai-dev-kit v<version> — <変更概要>"
-   git tag v<version>
-   ```
+## 研修モード
 
-5. push する
-   ```bash
-   git push origin main
-   git push origin v<version>
-   ```
+「研修モード」が明示された場合だけ、タスクの最後に良かった点・使いにくかった点・改善提案・今すぐ更新するかをまとめて1回確認する。通常は振り返り質問を出さない。
 
-6. 受講者・利用者への周知（導入方式に応じて）
-   - `gh skill` で入れている場合:
-     ```
-     gh skill update
-     ```
-   - Claude プラグインで入れている場合:
-     ```
-     /plugin marketplace update ai-dev-training
-     /plugin update ai-dev-kit@ai-dev-training
-     /reload-plugins
-     ```
-
-## 注意
-
-- `version` は `plugin.json` 側だけで管理する（`marketplace.json` 側には書かない。両方に書くと plugin.json が優先され混乱する）
-- 公開リポジトリへの push は外向きの不可逆操作。push 前に変更内容をユーザーへ提示して承認を得る
-- 秘匿情報（`.env` / 鍵 / 社内固有値）が含まれていないか push 前に必ず確認する
-
-## 実行後の改善確認（必須）
-
-スキル実行の最後に、次を必ず人間へ確認する。
-
-1. 今回の進め方の感想（良かった点）
-2. 使いにくかった点・迷った点（使い勝手）
-3. エージェントからの改善提案（手順 / コマンド / 出力）
-4. このスキルを今すぐ更新するか（Yes / No）
-
-### 遷移ルール
-
-- Yes: `/update-skill release-kit` を実行し、改善案を提示して承認後に反映する
-- No: 更新見送り理由を 1 行で記録し、次回見直しの条件を確認する
+同じタスクで複数スキルを使っても、振り返りは全体の終了時に1回だけ行い、途中や各スキルの終了ごとに繰り返さない。
