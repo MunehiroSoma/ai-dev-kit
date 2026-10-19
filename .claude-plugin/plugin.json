@@ -1,7 +1,7 @@
 {
   "name": "ai-dev-kit",
-  "description": "AI駆動開発の標準ワークフロースキル一式。GitHub Flow ベースの作業開始〜PR、レビュー、完了判定、自走、スキル自己改善・配布までをカバーする。",
-  "version": "0.1.1",
+  "description": "公式手順を優先し、Issue着手・検証・PR提出、スキル改善・配布と出力対象別の記述ルールを提供する。振り返りは研修モードで行う。",
+  "version": "0.2.0",
   "author": {
     "name": "Munehiro Soma",
     "email": "munehirosoma.business@gmail.com"

@@ -4,12 +4,12 @@
     "name": "Munehiro Soma",
     "email": "munehirosoma.business@gmail.com"
   },
-  "description": "AI駆動開発の標準ワークフロースキル集",
+  "description": "公式手順を優先してチームの開発運用を補完するスキル集",
   "plugins": [
     {
       "name": "ai-dev-kit",
       "source": ".",
-      "description": "AI駆動開発の標準ワークフロースキル一式（start / new-feature / create-issue / sync-main / ship / review / test-check / long-run / update-skill / release-kit）",
+      "description": "Issue着手・検証・PR提出、スキル改善・配布、応答・文書・コードの記述ルール。研修時に振り返りを行う。",
       "category": "workflow",
       "keywords": ["ai-driven-development", "workflow", "github-flow", "training"]
     }

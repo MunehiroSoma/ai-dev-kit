@@ -1,0 +1,16 @@
+public signature
+invalid attempts 0
+invalid attempts -1
+invalid attempts True
+invalid attempts 1.5
+invalid attempts '3'
+negative delay before operation
+immediate success identity
+retry success with exact wait and warning counts
+exhaustion preserves exception identity
+nonretry RuntimeError
+nonretry KeyboardInterrupt
+single attempt has no wait or warning
+zero delay supported
+partner workaround rationale retained
+reference file unchanged
