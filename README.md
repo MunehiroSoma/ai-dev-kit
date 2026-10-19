@@ -13,7 +13,7 @@ AI駆動開発の運用を補完するスキル集。GitHub Issue からの着�
 | `create-issue` | 粒度・完了条件・内容を確定して Issue を作成 |
 | `sync-main` | 指定した基準ブランチの更新を取り込む。名前にかかわらず main 固定ではない |
 | `ship` | 対象変更の commit → push → PR 作成/更新で終了。merge・ブランチ削除は含めない |
-| `review` | 読み取り専用のレビューと優先度付き指摘。修正・投稿は別の依頼範囲 |
+| `review` | コード・設計・計画の読み取り専用レビューと優先度付き指摘。対象別の観点を必要時に使う |
 | `test-check` | 変更に必要な検証と証跡。静的レビュー・公開・本番確認とは区別 |
 | `long-run` | 完了条件、進捗、チェックポイントを保ち、許可範囲で長時間作業を継続 |
 | `output-style` | 応答・ドキュメント・コードの記述や推敲に、対象別のルールを適用 |
@@ -100,9 +100,11 @@ gh skill update
 |---|---|---|
 | `ship` | Codex `yeet` / Claude `commit-push-pr` | 対象変更の限定、PR base、既存 PR の保持、PR 提出で終了 |
 | `update-skill` | 各ホストの `skill-creator` | 正本の特定、導入コピー編集禁止、配布への引継ぎ |
-| `review` | 利用可能な公式レビュー機能 / Claude `pr-review-toolkit` | チーム固有観点、読み取り専用・投稿の境界、証拠に基づく判定 |
+| `review` | 対象に合う公式レビュー機能 / Claude `pr-review-toolkit` | 設計・計画の観点、読み取り専用・投稿の境界、証拠に基づく判定 |
 
 公式の詳細は、該当するスキル内の `references/providers.md` に出典と適用条件を置く。公式本文を複製しない。`feature-dev` は設計・実装まで含むため、ブランチ準備だけの `new-feature` の置換とは扱わない。
+
+独自のレビュー基準の正本は `skills/review/`。コードには対象に合う公式手順を優先し、設計・計画には [設計レビューの観点](skills/review/references/design-review.md) を必要な範囲で使う。重大な問題を見つけても独立した重大リスクを確認し、未確認範囲は明示する。長所や破綻例の数は固定しない。
 
 - [OpenAI: skills とプロンプトの見直し](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)
 - [OpenAI: skills の公式案内](https://developers.openai.com/codex/skills)
